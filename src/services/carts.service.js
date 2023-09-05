@@ -66,7 +66,7 @@ class CartService {
       } else {
         cart.products.push({ idProduct: productId, quantity: 1 });
       }
-
+ 
       await cart.save();
 
       console.log(`Product ${productId} was added successfully to cart ${cartId}`);

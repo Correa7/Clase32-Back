@@ -7,7 +7,7 @@ const generateUserErrorInfo = (user) => {
         * email: type String, recibido: ${user.email}
         * age: type Number, recibido: ${age.email}
         
-`; 
+`;  
 };
 const generateProductErrorInfo = (product) => {
     // return msg custom
@@ -20,6 +20,7 @@ const generateProductErrorInfo = (product) => {
         * code: type String, recibido: ${product.code}
         * stock: type Number, recibido: ${product.stock}
         * category: type String, recibido: ${product.category}
+        * status: type Boolean, recibido: ${product.status}
 
 `; 
 };

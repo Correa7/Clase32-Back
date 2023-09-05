@@ -25,7 +25,7 @@ router.use(express.urlencoded({ extended: true }));
 
 router.get("/", getWithQuerys);
 router.get("/:id", isAdmin, getProductById);  
-router.post("/", isAdmin, addProduct);
+router.post("/", addProduct);
 router.post("/many", isAdmin, addManyProducts);
 router.delete("/:id", isAdmin, deleteProduct);
 router.put("/:id", isAdmin,updateProduct);

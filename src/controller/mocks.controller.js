@@ -2,7 +2,7 @@
 
 
 
- const mockUsers = async (req,res)=>{
+ const mockUsers = async (req,res)=>{ 
     try {
         let users = [];
         let numUsuarios = 5

@@ -5,8 +5,12 @@ const ProductService  = require ('../services/products.service.js');
 const ProductDTO = require ('../dao/DTO/product.dto.js'); 
 const productService = new ProductService();
 // const productDTO = new ProductDTO();
+const CustomError = require('../services/errors/CustomError.js');
+const EErrors = require('../services/errors/errors-enum.js');
+const { generateProductErrorInfo } = require('../services/errors/messages/creation-error.messages.js');
 
 
+ 
 
 const getWithQuerys = async (req,res) =>{
       try {
@@ -41,12 +45,23 @@ const getProductById = async (req, res) =>{
   }
 const addProduct = async (req, res) =>{
       try {
-          const product = req.body
+          const product = req.body 
+          const { title, description, price, thumbnail,code,stock,category, status } = req.body;
+        if (!title || !description || !price || !thumbnail || !code || !stock || !category || !status) {
+            // creamos custom Error
+            CustomError.createError({
+                name: "Product creation error",
+                cause: generateProductErrorInfo({ title, description, price, thumbnail,code,stock,category, status }),
+                message: "Error to create Product - TEST",
+                code: EErrors.INVALID_TYPES_ERROR
+            })
+        } 
           const productToAdd = new ProductDTO(product)
           await productService.addProduct(productToAdd)
           res.status(201).json({status:"success",message: 'Added successfuly', payload: product })
       } catch (error) {
-          res.status(400).json({status: "error", error: error.message})
+          console.error(error);
+          res.status(400).json({status: "error", error: error.code, message: error.message})
       }
   }
 const deleteProduct = async (req, res) =>{
@@ -95,9 +110,6 @@ const addManyProducts = async (req, res) => {
         });
       }
     }
-
-
-
 const getProductError = (req,res) => {
   res.render("error404", {
     style: "error404.css",
